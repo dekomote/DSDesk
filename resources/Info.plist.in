@@ -7,7 +7,7 @@
     <key>CFBundleExecutable</key>
     <string>DSDesk</string>
     <key>CFBundleIconFile</key>
-    <string>com.dekomote.dsdesk</string>
+    <string>icon.icns</string>
     <key>CFBundleIdentifier</key>
     <string>com.dsdesk.app</string>
     <key>CFBundleInfoDictionaryVersion</key>

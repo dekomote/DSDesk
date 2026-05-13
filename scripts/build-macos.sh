@@ -19,7 +19,7 @@ echo -e "${BOLD}Building DSDesk for macOS${RESET}"
 echo -e "\n${BOLD}Configuring...${RESET}"
 cmake -S "$PROJECT_DIR" -B "$BUILD_DIR" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
+    -DCMAKE_OSX_ARCHITECTURES="arm64;" \
     -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0
 
 # Build

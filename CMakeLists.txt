@@ -112,8 +112,35 @@ if(APPLE)
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist.in"
+        MACOSX_BUNDLE_ICON_FILE "icon.icns"
     )
     target_link_libraries(dsdesk PRIVATE "-framework Security")
+
+    # Copy icon into bundle Resources
+    add_custom_command(TARGET dsdesk POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.icns"
+            "$<TARGET_BUNDLE_DIR:dsdesk>/Contents/Resources/icon.icns"
+        COMMENT "Copying icon.icns to bundle..."
+    )
+
+    # Deploy Qt frameworks for macOS
+    find_program(MACDEPLOYQT_EXECUTABLE macdeployqt)
+    if(MACDEPLOYQT_EXECUTABLE)
+        add_custom_command(TARGET dsdesk POST_BUILD
+            COMMAND "${MACDEPLOYQT_EXECUTABLE}"
+                "$<TARGET_BUNDLE_DIR:dsdesk>"
+                -qmldir="${CMAKE_SOURCE_DIR}/src/qml"
+                -verbose=1
+            COMMENT "Running macdeployqt..."
+        )
+    endif()
+
+    # Re-sign after macdeployqt (install_name_tool invalidates signature)
+    add_custom_command(TARGET dsdesk POST_BUILD
+        COMMAND codesign --force --deep --sign - "$<TARGET_BUNDLE_DIR:dsdesk>"
+        COMMENT "Re-signing app bundle..."
+    )
 elseif(WIN32)
     set_target_properties(dsdesk PROPERTIES
         WIN32_EXECUTABLE TRUE
@@ -187,5 +214,9 @@ set(CPACK_NSIS_HELP_LINK "${APP_HOMEPAGE}")
 set(CPACK_NSIS_URL_INFO_ABOUT "${APP_HOMEPAGE}")
 set(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut '$DESKTOP\\\\DSDesk.lnk' '$INSTDIR\\\\bin\\\\dsdesk.exe'")
 set(CPACK_NSIS_DELETE_ICONS_EXTRA "Delete '$DESKTOP\\\\DSDesk.lnk'")
+
+# DMG (macOS Drag and Drop)
+set(CPACK_DMG_VOLUME_NAME "${PROJECT_NAME}")
+set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/resources/dmg-background.png")
 
 include(CPack)
