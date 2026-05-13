@@ -1,0 +1,21 @@
+app-id: com.dekomote.dsdesk
+runtime: org.kde.Platform
+runtime-version: '6.10'
+sdk: org.kde.Sdk
+command: dsdesk
+
+finish-args:
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=input
+
+modules:
+  - name: dsdesk
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+    sources:
+      - type: git
+        url: https://github.com/dekomote/DSDesk.git
+        tag: v0.5.1

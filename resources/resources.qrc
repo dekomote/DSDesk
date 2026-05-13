@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="com.dekomote.dsdesk.svg">icons/com.dekomote.dsdesk.svg</file>
+        <file alias="play.svg">icons/play.svg</file>
+        <file alias="pause.svg">icons/pause.svg</file>
+        <file alias="delete.svg">icons/delete.svg</file>
+    </qresource>
+</RCC>

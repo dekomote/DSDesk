@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>@APP_ID@</id>
+  <name>@PROJECT_NAME@</name>
+  <developer id="com.dekomote">
+    <name>@APP_AUTHOR_NAME@</name>
+    <email>@APP_AUTHOR_EMAIL@</email>
+  </developer>
+  <summary>@APP_DESCRIPTION@</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>@APP_LICENSE@</project_license>
+  <description>
+    <p>@APP_LONG_DESCRIPTION@</p>
+  </description>
+  <url type="homepage">@APP_HOMEPAGE@</url>
+  <url type="bugtracker">@APP_BUG_ADDRESS@</url>
+  <url type="vcs-browser">@APP_HOMEPAGE@</url>
+  <launchable type="desktop-id">@APP_ID@.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Login View</caption>
+      <image>https://raw.githubusercontent.com/dekomote/DSDesk/v@PROJECT_VERSION@/resources/screen1.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Main Window</caption>
+      <image>https://raw.githubusercontent.com/dekomote/DSDesk/v@PROJECT_VERSION@/resources/screen2.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="@PROJECT_VERSION@" date="@APP_RELEASE_DATE@" />
+  </releases>
+</component>

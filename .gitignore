@@ -1,0 +1,16 @@
+build/
+CMakeUserPresets.json
+*.qm
+*.o
+*.obj
+*.exe
+*.app
+.DS_Store
+Thumbs.db
+
+*.rpm
+*.deb
+*.dmg
+*.exe
+*.flatpak
+*.AppImage
