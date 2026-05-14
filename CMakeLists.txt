@@ -171,7 +171,7 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "qml6-module-qtquick, qml6-module-qtquick-controls, libqt6core6, libqt6gui6, libqt6network6, libqt6qml6, libqt6quick6")
 set(CPACK_DEBIAN_PACKAGE_SECTION "net")
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/yourusername/DSDesk")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "${APP_HOMEPAGE}")
 
 # RPM
 if(EXISTS "/etc/os-release")

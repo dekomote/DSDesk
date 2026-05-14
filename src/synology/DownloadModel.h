@@ -46,6 +46,9 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE void refresh();
+    Q_INVOKABLE QString formatSize(double bytes) const;
+    Q_INVOKABLE QString formatSpeed(double bytesPerSec) const;
+    Q_INVOKABLE QString formatEta(int seconds) const;
 
 signals:
     void countChanged();
@@ -54,9 +57,6 @@ public slots:
     void onTasksReceived(const QJsonArray &tasks);
 
 private:
-    static QString formatSize(double bytes);
-    static QString formatSpeed(double bytesPerSec);
-    static QString formatEta(int seconds);
 
     QList<DownloadTask> m_tasks;
     QTimer *m_pollTimer;

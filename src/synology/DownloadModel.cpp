@@ -163,7 +163,7 @@ void DownloadModel::onTasksReceived(const QJsonArray &tasks)
     emit countChanged();
 }
 
-QString DownloadModel::formatSize(double bytes)
+QString DownloadModel::formatSize(double bytes) const
 {
     if (bytes < 1024)
         return QString::number(bytes) + " B";
@@ -177,7 +177,7 @@ QString DownloadModel::formatSize(double bytes)
     return QString::number(gb, 'f', 2) + " GB";
 }
 
-QString DownloadModel::formatSpeed(double bytesPerSec)
+QString DownloadModel::formatSpeed(double bytesPerSec) const
 {
     if (bytesPerSec < 1024)
         return QString::number(bytesPerSec, 'f', 0) + " B/s";
@@ -188,7 +188,7 @@ QString DownloadModel::formatSpeed(double bytesPerSec)
     return QString::number(mb, 'f', 2) + " MB/s";
 }
 
-QString DownloadModel::formatEta(int seconds)
+QString DownloadModel::formatEta(int seconds) const
 {
     if (seconds < 0)
         return "—";

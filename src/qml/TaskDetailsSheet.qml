@@ -57,15 +57,15 @@ Dialog {
         if (transfer) {
             var downloadedSize = parseFloat(transfer.size_downloaded) || 0;
             sizeLabel.text = qsTr("Size: %1 / %2").arg(
-                formatSize(downloadedSize)).arg(formatSize(totalSize));
+                downloadModel.formatSize(downloadedSize)).arg(downloadModel.formatSize(totalSize));
             if (totalSize > 0)
                 progressBar.value = downloadedSize / totalSize;
             speedLabel.text = qsTr("Down: %1  Up: %2").arg(
-                formatSpeed(transfer.speed_download || 0)).arg(
-                formatSpeed(transfer.speed_upload || 0));
+                downloadModel.formatSpeed(transfer.speed_download || 0)).arg(
+                downloadModel.formatSpeed(transfer.speed_upload || 0));
         } else {
             sizeLabel.text = totalSize > 0
-                ? qsTr("Size: %1").arg(formatSize(totalSize))
+                ? qsTr("Size: %1").arg(downloadModel.formatSize(totalSize))
                 : "";
             speedLabel.text = "";
         }
@@ -76,7 +76,7 @@ Dialog {
             for (var i = 0; i < files.length; i++) {
                 filesModel.append({
                     name: files[i].filename || qsTr("Unknown"),
-                    size: formatSize(files[i].size || 0)
+                    size: downloadModel.formatSize(files[i].size || 0)
                 });
             }
         }
@@ -92,21 +92,7 @@ Dialog {
         }
     }
 
-    function formatSize(bytes) {
-        if (!bytes || bytes < 1024) return (bytes || 0) + " B";
-        var kb = bytes / 1024;
-        if (kb < 1024) return kb.toFixed(1) + " KB";
-        var mb = kb / 1024;
-        if (mb < 1024) return mb.toFixed(2) + " MB";
-        return (mb / 1024).toFixed(2) + " GB";
-    }
 
-    function formatSpeed(bps) {
-        if (!bps || bps < 1024) return (bps || 0) + " B/s";
-        var kb = bps / 1024;
-        if (kb < 1024) return kb.toFixed(1) + " KB/s";
-        return (kb / 1024).toFixed(2) + " MB/s";
-    }
 
     ListModel { id: filesModel }
 

@@ -173,7 +173,7 @@ Dialog {
 
         TextField {
             id: destField
-            placeholderText: qsTr("Destination folder (optional)")
+            placeholderText: qsTr("Destination folder")
             Layout.fillWidth: true
         }
 

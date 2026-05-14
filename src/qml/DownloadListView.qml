@@ -14,6 +14,12 @@ Page {
         addDialog.openWithMagnet(url);
     }
 
+    function logout() {
+        synoSettings.clearCredentials();
+        synoClient.logout();
+        ApplicationWindow.window.stackView.navigateToLogin();
+    }
+
     header: ToolBar {
         Material.elevation: 2
 
@@ -47,11 +53,7 @@ Page {
             Button {
                 text: qsTr("Disconnect")
                 flat: true
-                onClicked: {
-                    synoSettings.clearCredentials();
-                    synoClient.logout();
-                    ApplicationWindow.window.stackView.navigateToLogin();
-                }
+                onClicked: root.logout()
             }
         }
     }
@@ -105,9 +107,7 @@ Page {
                     Layout.fillWidth: true
                     onClicked: {
                         drawer.close();
-                        synoSettings.clearCredentials();
-                        synoClient.logout();
-                        ApplicationWindow.window.stackView.navigateToLogin();
+                        root.logout();
                     }
                 }
             }

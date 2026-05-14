@@ -11,6 +11,7 @@ SynologyClient::SynologyClient(QObject *parent)
     : QObject(parent)
     , m_nam(new QNetworkAccessManager(this))
 {
+    m_nam->setTransferTimeout(30000);
     connect(m_nam, &QNetworkAccessManager::sslErrors, this, &SynologyClient::onSslErrors);
 }
 
@@ -251,6 +252,7 @@ void SynologyClient::createTaskTorrent(const QUrl &torrentPath, const QString &d
     fullUrl.setQuery(query);
 
     QNetworkRequest req(fullUrl);
+    req.setTransferTimeout(120000);
     req.setRawHeader("Content-Type", "multipart/form-data; boundary=" + multiPart->boundary());
     if (!m_synoToken.isEmpty())
         req.setRawHeader("X-SYNO-TOKEN", m_synoToken.toUtf8());
