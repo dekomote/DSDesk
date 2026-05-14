@@ -37,14 +37,15 @@ struct DownloadTask {
         task.status = obj["status"].toString();
         task.sizeTotal = obj["size"].toVariant().toDouble();
 
-        auto detail = obj["additional"].toObject()["detail"].toObject();
+        auto additional = obj["additional"].toObject();
+        auto detail = additional["detail"].toObject();
         task.destination = detail["destination"].toString();
         task.uri = detail["uri"].toString();
         task.statusDetail =
             detail["status_extra"].toObject().isEmpty() ? QString() : QString::fromUtf8(QJsonDocument(detail["status_extra"].toObject()).toJson());
         task.completed = detail["completed"].toBool();
 
-        auto transfer = obj["additional"].toObject()["transfer"].toObject();
+        auto transfer = additional["transfer"].toObject();
         task.speedDown = transfer["speed_download"].toDouble(0);
         task.speedUp = transfer["speed_upload"].toDouble(0);
         task.sizeDownloaded = transfer["size_downloaded"].toDouble(0);
@@ -57,16 +58,16 @@ struct DownloadTask {
         else
             task.eta = -1;
 
-        auto tracker = obj["additional"].toObject()["tracker"].toArray();
+        auto tracker = additional["tracker"].toArray();
         task.trackers = tracker;
 
-        auto peerInfo = obj["additional"].toObject()["peer"].toObject();
+        auto peerInfo = additional["peer"].toObject();
         task.peersConnected = peerInfo["connected_peers"].toInt(0);
         task.peersTotal = peerInfo["total_peers"].toInt(0);
         task.seedersConnected = peerInfo["connected_seeders"].toInt(0);
         task.seedersTotal = peerInfo["total_seeders"].toInt(0);
 
-        task.files = obj["additional"].toObject()["file"].toArray();
+        task.files = additional["file"].toArray();
         task.rawDetail = obj;
 
         return task;

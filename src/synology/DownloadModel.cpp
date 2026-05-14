@@ -12,7 +12,12 @@ DownloadModel::DownloadModel(SynologyClient *client, QObject *parent)
     connect(m_client, &SynologyClient::tasksReceived, this, &DownloadModel::onTasksReceived);
     connect(m_pollTimer, &QTimer::timeout, this, &DownloadModel::refresh);
     m_pollTimer->setInterval(3000);
-    m_pollTimer->start();
+
+    connect(m_client, &SynologyClient::loginSuccess, this, [this]() {
+        m_pollTimer->start();
+        refresh();
+    });
+    connect(m_client, &SynologyClient::disconnected, m_pollTimer, &QTimer::stop);
 }
 
 int DownloadModel::rowCount(const QModelIndex &parent) const
