@@ -25,10 +25,10 @@ ApplicationWindow {
         target: ipc
         function onTorrentReceived(torrent) {
             if (stack.currentItem && stack.currentItem.openAddDialogWithTorrent) {
-                if (torrent.startsWith("magnet:"))
-                    stack.currentItem.openAddDialogWithMagnet(torrent);
-                else
+                if (torrent.startsWith("file:"))
                     stack.currentItem.openAddDialogWithTorrent(torrent);
+                else
+                    stack.currentItem.openAddDialogWithMagnet(torrent);
             } else {
                 pendingTorrent = torrent;
             }
@@ -47,10 +47,10 @@ ApplicationWindow {
                 pendingTorrent = "";
                 Qt.callLater(function() {
                     if (stack.currentItem && stack.currentItem.openAddDialogWithTorrent) {
-                        if (torrent.startsWith("magnet:"))
-                            stack.currentItem.openAddDialogWithMagnet(torrent);
-                        else
+                        if (torrent.startsWith("file:"))
                             stack.currentItem.openAddDialogWithTorrent(torrent);
+                        else
+                            stack.currentItem.openAddDialogWithMagnet(torrent);
                     }
                 });
             }

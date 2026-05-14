@@ -48,13 +48,12 @@ int main(int argc, char *argv[])
     QString pendingTorrent;
     for (int i = 1; i < argc; i++) {
         QString arg = QString::fromLocal8Bit(argv[i]);
-        if (arg.startsWith("magnet:", Qt::CaseInsensitive)) {
-            pendingTorrent = arg;
-            break;
-        } else {
+        if (QUrl(arg).isLocalFile()) {
             pendingTorrent = QUrl::fromLocalFile(arg).toString();
-            break;
+        } else {
+            pendingTorrent = arg;
         }
+        break;
     }
 
     // Create IPC but don't start listening yet
