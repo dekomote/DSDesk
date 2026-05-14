@@ -4,7 +4,6 @@
   <name>@PROJECT_NAME@</name>
   <developer id="com.dekomote">
     <name>@APP_AUTHOR_NAME@</name>
-    <email>@APP_AUTHOR_EMAIL@</email>
   </developer>
   <summary>@APP_DESCRIPTION@</summary>
   <metadata_license>CC0-1.0</metadata_license>

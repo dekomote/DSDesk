@@ -8,3 +8,4 @@ Terminal=false
 Categories=Network;FileTransfer;P2P;
 MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 StartupNotify=true
+StartupWMClass=dsdesk

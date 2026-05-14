@@ -38,7 +38,6 @@ qt_standard_project_setup()
 
 set(SOURCES
     src/main.cpp
-    src/ipc.h
     src/synology/SynologyClient.cpp
     src/synology/DownloadModel.cpp
     src/synology/SynologySettings.cpp
@@ -46,6 +45,7 @@ set(SOURCES
 )
 
 set(HEADERS
+    src/ipc.h
     src/synology/SynologyClient.h
     src/synology/DownloadTask.h
     src/synology/DownloadModel.h
@@ -146,7 +146,6 @@ elseif(WIN32)
         install(DIRECTORY "${CMAKE_BINARY_DIR}/deploy/" DESTINATION bin)
     endif()
 else()
-    install(TARGETS dsdesk RUNTIME DESTINATION bin)
     install(FILES resources/${APP_ID}.desktop DESTINATION share/applications)
     install(FILES resources/icons/${APP_ID}.svg DESTINATION share/icons/hicolor/scalable/apps)
     configure_file(resources/${APP_ID}.metainfo.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${APP_ID}.metainfo.xml @ONLY)
@@ -165,10 +164,10 @@ set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-${CMAKE_SYSTEM_P
 set(CPACK_PACKAGE_CONTACT "${APP_AUTHOR_EMAIL}")
 set(CPACK_PACKAGE_RELEASE 1)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${APP_DESCRIPTION}")
+set(CPACK_PACKAGE_DESCRIPTION "${APP_LONG_DESCRIPTION}")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 
 # DEB
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "qml6-module-qtquick, qml6-module-qtquick-controls, libqt6core6, libqt6gui6, libqt6network6, libqt6qml6, libqt6quick6")
 set(CPACK_DEBIAN_PACKAGE_SECTION "net")
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "${APP_HOMEPAGE}")
@@ -182,7 +181,7 @@ if(EXISTS "/etc/os-release")
 endif()
 
 if(IS_OPENSUSE)
-    set(CPACK_RPM_PACKAGE_REQUIRES "libQt6Core6, libQt6Gui6, libQt6Network6, libQt6Widgets6, libQt6Qml6, libQt6Quick6")
+    set(CPACK_RPM_PACKAGE_REQUIRES "libQt6Core6, libQt6Gui6, libQt6Network6, libQt6Qml6, libQt6Quick6, libQt6QuickControls2-6")
 else()
     set(CPACK_RPM_PACKAGE_REQUIRES "qt6-qtbase, qt6-qtdeclarative")
 endif()
@@ -204,6 +203,8 @@ set(CPACK_DMG_VOLUME_NAME "${PROJECT_NAME}")
 set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/resources/dmg-background.png")
 
 # macOS: deploy Qt frameworks and re-sign during packaging
-set(CPACK_INSTALL_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/resources/codesign_bundle.cmake")
+if(APPLE)
+    set(CPACK_INSTALL_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/resources/codesign_bundle.cmake")
+endif()
 
 include(CPack)
