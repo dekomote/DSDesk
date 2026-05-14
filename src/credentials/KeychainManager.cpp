@@ -58,7 +58,7 @@ void KeychainManager::save(const QString &service, const QString &key, const QSt
     QByteArray secretUtf8 = secret.toUtf8();
     cred.CredentialBlobSize = secretUtf8.size();
     cred.CredentialBlob = reinterpret_cast<LPBYTE>(secretUtf8.data());
-    cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
+    cred.Persist = CRED_PERSIST_ENTERPRISE;
     CredWriteW(&cred, 0);
 #else
     // Linux: use secret-tool (libsecret CLI) if available

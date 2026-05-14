@@ -94,6 +94,7 @@ void SynologyClient::doLogin()
 
         m_connected = true;
         m_connectionState = tr("Connected");
+        m_password = "";
         emit connectedChanged();
         emit connectionStateChanged();
         emit loginSuccess();
@@ -329,7 +330,10 @@ void SynologyClient::getTaskDetail(const QString &taskId)
     params["additional"] = "detail,transfer,file,tracker,peer";
 
     get("SYNO.DownloadStation.Task", info.path, params, [this](const QJsonObject &resp) {
-        auto task = resp["data"].toObject()["tasks"].toArray().first().toObject();
+        auto tasks = resp["data"].toObject()["tasks"].toArray();
+        if (tasks.isEmpty())
+            return;
+        auto task = tasks.at(0).toObject();
         emit taskDetailReceived(task);
     });
 }

@@ -73,7 +73,6 @@ private:
     void handleApiResponse(QNetworkReply *reply, std::function<void(const QJsonObject &)> callback);
     void handleApiResponse(QNetworkReply *reply, std::function<void(const QJsonObject &)> onSuccess, std::function<void(const QString &)> onError);
     QString handleNetworkError(QNetworkReply *reply);
-    void discoverApis();
 
     QNetworkAccessManager *m_nam;
     QString m_host;
